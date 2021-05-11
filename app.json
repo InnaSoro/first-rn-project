@@ -3,10 +3,11 @@
   "displayName": "test-rn-project",
   "expo": {
     "name": "test-rn-project",
-    "slug": "test-rn-project",
+    "slug": "test-rn-project-demo",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": ""
   }
 }
