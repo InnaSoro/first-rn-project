@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-// import { useDebounce } from 'use-debounce';
 import { findProject } from '../api';
 import { ProjectsList} from './ProjectsList';
 import { Selector } from './Selector';
@@ -20,7 +19,9 @@ export const Search = () => {
         setIsSearching(true);
         findProject(debouncedSearchTerm).then((results) => {
           setIsSearching(false);
-          setRepos(results);
+          if (results) {
+            setRepos(results);
+          }
         });
       } else {
         setRepos([]);
@@ -29,7 +30,7 @@ export const Search = () => {
     [debouncedSearchTerm]
   );
 
-  const filter = (itemValue) => {
+  const filter = (itemValue: string) => {
     setLanguage(itemValue);
   }
 

@@ -9,11 +9,11 @@ interface Props {
 
 export const ProjectsList: FC<Props> = React.memo(
   ({repos}) => {
-    const storeData = async (value) => {
+    const storeData = async (project: Repository) => {
       try {
-        await AsyncStorage.setItem(value.id.toString(), JSON.stringify(value));
+        await AsyncStorage.setItem(project.id.toString(), JSON.stringify(project));
       } catch (e) {
-        return value;
+        return project;
       }
     }
 

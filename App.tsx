@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { EvilIcons } from '@expo/vector-icons';
@@ -7,7 +7,12 @@ import { Fontisto } from '@expo/vector-icons';
 import { Search } from './components/Search';
 import { FavoriteList } from './components/FavoriteList';
 
-const Tab = createBottomTabNavigator();
+export type TabNavigationParamList = {
+  Search: undefined,
+  Favorite: undefined;
+};
+
+const Tab = createBottomTabNavigator<TabNavigationParamList>();
 
 export default function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Repository } from '../types';
 import {
   StyleSheet,
@@ -10,19 +10,26 @@ import {
   Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from 'react-navigation-hooks';
-import { NavigationContext} from 'react-navigation';
+import {TabNavigationParamList} from '../App';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-export const FavoriteList = ({navigation}) => {
+type Props = {
+  navigation: StackNavigationProp<TabNavigationParamList, 'Favorite'>;
+};
+
+export const FavoriteList: FC<Props> = ({navigation}) => {
   const [favorites, setFavorites] = useState<Repository[]>([]);
-  const [keysFav, setKeysFav] = useState([]);
 
   const getData = async () => {
     await getAllKeys()
       .then (async (res) => {
-        const list = [];
+        const list: Repository[] = [];
         for (let i = 0; i < res.length; i++) {
-          await getProject(res[i]).then(x => list.push( JSON.parse(x)))
+          await getProject(res[i]).then(project => {
+            if (project) {
+              list.push(JSON.parse(project))
+            }
+          })
         }
         setFavorites(list)
       })
@@ -41,7 +48,7 @@ export const FavoriteList = ({navigation}) => {
     return keys;
   };
 
-  const getProject = async (id) => {
+  const getProject = async (id: string) => {
     let project = await AsyncStorage.getItem(id);
     return project;
   };
@@ -50,7 +57,7 @@ export const FavoriteList = ({navigation}) => {
     getData();
   }, []);
 
-  const removeValue = async (id) => {
+  const removeValue = async (id: number) => {
     try {
       const str = id.toString();
       await AsyncStorage.removeItem(str);
@@ -59,7 +66,7 @@ export const FavoriteList = ({navigation}) => {
     }
   };
 
-  const deleteItem = (id) => {
+  const deleteItem = (id: number) => {
     removeValue(id);
     getData();
   };
@@ -127,7 +134,6 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   projects: {
-    // marginBottom: 50,
     marginTop: 40,
     marginHorizontal: 10,
   },

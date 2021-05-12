@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Repository } from '../types';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet} from "react-native";
 import {Picker} from '@react-native-picker/picker';
 
 interface Props {
   repos: Repository[];
-  filter: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  filter: (itemValue: string) => void;
   language: string;
 }
 
