@@ -1,1 +1,1 @@
-[Try app on snack](https://snack.expo.io/@innasoro/test-rn-github-search)
+[DEMO](https://expo.io/@innasoro/projects/test-rn-project-demo)
